@@ -4,7 +4,6 @@ import { UserRepositoryImpl } from './../../repositories/user_repository_impl.js
 import { AuthRepositoryImpl } from './../../repositories/auth_repository_impl.js';
 import * as passwordUtil from './../../../utils/password_utils.js';
 import * as jwtUtil from './../../../utils/jwt_handler.js';
-
 import { loginSchema, registerSchema } from './../schemas/auth_schema.js';
 
 const authUseCases = new AuthUseCases({
@@ -30,13 +29,10 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
 	try {
 		const parsed = loginSchema.parse(req.body);
-		const result = await authUseCases.login(parsed);
-		return res.status(200).json({ success: true, data: result });
+		const user  = await authUseCases.login(parsed);
+		return res.status(200).json({ success: true, data: user });
 	} catch (err) {
-		if (err instanceof ZodError) {
-			return res.status(400).json({ success: false, detail: 'Validation error', issues: err.errors });
-		}
-		return res.status(401).json({ success: false, detail: err.message || 'Invalid credentials' });
+		return res.status(401).json({ success: false, message: err.message, detail: err });
 	}
 };
 
@@ -46,7 +42,7 @@ export const refresh = async (req, res) => {
 		const result = await authUseCases.refresh({ refresh_token });
 		return res.status(200).json({ success: true, data: result });
 	} catch (err) {
-		return res.status(401).json({ success: false, detail: err.message || 'Invalid refresh token' });
+		return res.status(401).json({ success: false, message: err.message, detail: err });
 	}
 };
 

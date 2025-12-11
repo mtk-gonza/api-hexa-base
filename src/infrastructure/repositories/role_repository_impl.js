@@ -10,6 +10,7 @@ export class RoleRepositoryImpl extends RoleRepositoryPort {
         return new Role ({
             id: roleInstance.id,
             name: roleInstance.name,
+            permission: roleInstance.permission,
             description: roleInstance.description,
             created_at: roleInstance.created_at,
             updated_at: roleInstance.updated_at
@@ -25,22 +26,10 @@ export class RoleRepositoryImpl extends RoleRepositoryPort {
         return role ? this.#toEntity(role) : null;
     }
 
-    async findByNames(names) {
-        const roles =  await RoleModel.findAll({
-            where: {
-                name: names
-            }
-        });
-        return roles.map(role => ({
-            id: role.id,
-            name: role.name,
-            description: role.description
-        }));
-    }
-
     async create(roleEntity) {
         const role = await RoleModel.create({
             name: roleEntity.name,
+            permission: roleEntity.permission,
             description: roleEntity.description
         });
         return this.#toEntity(role);
@@ -51,6 +40,7 @@ export class RoleRepositoryImpl extends RoleRepositoryPort {
         if (!role) return null;
 
         role.name = roleEntity.name ?? role.name;
+        role.permission = roleEntity.permission ?? role.permission;
         role.description = roleEntity.description ?? role.description;
         await role.save();
 

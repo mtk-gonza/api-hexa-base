@@ -1,59 +1,42 @@
 import { RoleType } from './../../../../../../utils/role_type.js';
 
+const now = new Date();
+
 export const USERS = [
     {
-        username: 'root',
         email: 'root@example.com',
-        password: 'root',
+        password: 'root123',
         first_name: 'root',
         last_name: 'root',
-        phone: '91961',
         roles: [RoleType.ROOT, RoleType.ADMIN, RoleType.EDITOR],
-        created_at: new Date(),
-        updated_at: new Date()
+        created_at: now,
+        updated_at: now
     },
     {
-        username: 'admin',
         email: 'admin@example.com',
-        password: 'admin',
+        password: 'admin123',
         first_name: 'admin',
         last_name: 'admin',
-        phone: '91961',
         roles: [RoleType.ADMIN, RoleType.EDITOR],
-        created_at: new Date(),
-        updated_at: new Date()
+        created_at: now,
+        updated_at: now
     },
     {
-        username: 'editor',
         email: 'editor@example.com',
-        password: 'editor',
+        password: 'editor123',
         first_name: 'editor',
         last_name: 'editor',
-        phone: '91961',
         roles: [RoleType.EDITOR],
-        created_at: new Date(),
-        updated_at: new Date()
+        created_at: now,
+        updated_at: now
     },
     {
-        username: 'user',
         email: 'user@example.com',
-        password: 'user',
+        password: 'user123',
         first_name: 'user',
         last_name: 'user',
-        phone: '91961',
         roles: [RoleType.USER],
-        created_at: new Date(),
-        updated_at: new Date()
-    },
-    {
-        username: 'guest',
-        email: 'guest@example.com',
-        password: 'guest',
-        first_name: 'guest',
-        last_name: 'guest',
-        phone: '91961',
-        roles: [RoleType.GUEST],
-        created_at: new Date(),
-        updated_at: new Date()
+        created_at: now,
+        updated_at: now
     }
 ];

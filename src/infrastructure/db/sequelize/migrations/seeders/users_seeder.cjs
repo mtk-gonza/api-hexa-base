@@ -14,7 +14,7 @@ module.exports = {
         for (const user of USERS) {
             let userId = await queryInterface.rawSelect(
                 'users',
-                { where: { username: user.username } },
+                { where: { email: user.email } },
                 ['id']
             );
 
@@ -22,19 +22,18 @@ module.exports = {
                 user.password = bcrypt.hashSync(user.password, 10);
 
                 await queryInterface.bulkInsert('users', [{
-                    username: user.username,
                     email: user.email,
                     password: user.password,
                     first_name: user.first_name,
                     last_name: user.last_name,
-                    phone: user.phone,
-                    created_at: new Date(),
-                    updated_at: new Date()
+                    is_active: true,
+                    created_at: user.created_at,
+                    updated_at: user.updated_at
                 }], {});
 
                 userId = await queryInterface.rawSelect(
                     'users',
-                    { where: { username: user.username } },
+                    { where: { email: user.email } },
                     ['id']
                 );
             }

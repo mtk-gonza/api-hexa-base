@@ -27,7 +27,7 @@ Esto aplica todos los archivos en migrations/.
 Si ya se aplicaron algunas, Sequelize ignora duplicados.
 
 ## 2️⃣ Ejecutar los seeders
-Si querés poblar la DB con datos iniciales (categorías, roles, usuarios, etc.):
+Si querés poblar la DB con datos iniciales (roles y usuarios):
 ```bash
 npm run seed
 ```

@@ -4,18 +4,13 @@ export const USER_COLUMNS = {
         primaryKey: true,
         autoIncrement: true,
     },
-    username: {
-        type: 'STRING(20)',
-        allowNull: false,
-        unique: true
-    },
     email: {
         type: 'STRING(50)',
         allowNull: false,
         unique: true
     },
     password: {
-        type: 'STRING(100)',
+        type: 'STRING(255)',
         allowNull: false
     },
     first_name: {
@@ -25,10 +20,6 @@ export const USER_COLUMNS = {
     last_name: {
         type: 'STRING(60)',
         allowNull: false
-    },
-    phone: {
-        type: 'STRING(50)',
-        allowNull: true
     },
     is_active: {
         type: 'BOOLEAN',

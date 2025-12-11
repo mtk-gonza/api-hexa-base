@@ -9,6 +9,10 @@ export const ROLE_COLUMNS = {
         unique: true,
         allowNull: false
     },
+    permission: {
+        type: 'JSON',
+        allowNull: false
+    },
     description: {
         type: 'STRING(255)',
         allowNull: true

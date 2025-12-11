@@ -8,7 +8,7 @@ export class AuthUseCases {
 		this.authRepository = authRepository;
 	}
 
-	async register({ username, email, password, first_name, last_name }) {
+	async register({ email, password, first_name, last_name }) {
 		const existsEmail = await this.userRepository.findByEmail(email);
 		if (existsEmail) throw new Error('Email already in use');
 
@@ -21,17 +21,19 @@ export class AuthUseCases {
 	}
 
 	async login({ email, password }) {
-		const user = await this.userRepository.findByEmail(email);
+		const user = await this.userRepository.findByEmail(email, { withPassword: true });
 		if (!user) throw new Error('Invalid credentials');
 		const ok = await this.passwordUtil.comparePassword(password, user.password);
 		if (!ok) throw new Error('Invalid credentials');
 		const roles = (user.roles || []).map(r => r.name);
-		const accessToken = this.jwtUtil.sign({ id: user.id, username: user.username, email: user.email, roles });
+		const accessToken = this.jwtUtil.sign({ id: user.id, email: user.email, roles });
 		// Generar refresh token (simple UUID-like)
 		const refreshToken = `${user.id}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 		const expiresMs = parseDurationMs(settings.REFRESH_EXPIRES_IN || '7d');
 		await this.authRepository?.storeRefreshToken(user.id, refreshToken, Date.now() + expiresMs);
-		return { user, access_token: accessToken, refresh_token: refreshToken };
+		user.accessToken = accessToken
+		user.refreshToken = refreshToken
+		return user;
 	}
 
 	async refresh({ refresh_token }) {

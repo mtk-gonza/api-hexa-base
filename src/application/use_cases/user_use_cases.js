@@ -16,19 +16,16 @@ export class UserUseCases {
     }
 
     async createUser(data) {
-        if (!data.username) throw new Error('Username is required');
         if (!data.email) throw new Error('Email is required');
         if (!data.password) throw new Error('Password is required');
         if (!data.first_name) throw new Error('First Name is required');
         if (!data.last_name) throw new Error('Last Name is required');
 
         const userEntity = new User({
-            username: data.username,
             email: data.email,
             password: data.password,
             first_name: data.first_name,
             last_name: data.last_name,
-            phone: data.phone,
             is_active: data.is_active
         });
 
@@ -37,12 +34,10 @@ export class UserUseCases {
 
     async updateUser(id, data) {
         const userEntity = new User({
-            username: data.username,
             email: data.email,
             password: data.password,
             first_name: data.first_name,
             last_name: data.last_name,
-            phone: data.phone,
             is_active: data.is_active
         });
 

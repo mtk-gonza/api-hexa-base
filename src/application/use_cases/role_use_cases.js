@@ -20,6 +20,7 @@ export class RoleUseCases {
 
         const roleEntity = new Role({
             name: data.name,
+            permission: data.permission,
             description: data.description
         });
 
@@ -29,6 +30,7 @@ export class RoleUseCases {
     async updateRole(id, data) {
         const roleEntity = new Role({
             name: data.name,
+            permission: data.permission,
             description: data.description
         });
 

@@ -10,7 +10,11 @@ module.exports = {
                 ['id']
             );
             if (!roleId) {
-                await queryInterface.bulkInsert('roles', [role], {});
+                const roleToInsert = {
+                    ...role,
+                    permission: JSON.stringify(role.permission)
+                };
+                await queryInterface.bulkInsert('roles', [roleToInsert], {});
             }
         }
     },

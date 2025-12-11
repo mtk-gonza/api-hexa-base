@@ -38,7 +38,7 @@ export const getRoles = async (req, res) => {
         const response = roles.map((r) => RoleResponseSchema.parse(r));
         return res.status(200).json({
             success: true,
-            data: response
+            data: roles
         });
     } catch (err) {
         return res.status(404).json({
